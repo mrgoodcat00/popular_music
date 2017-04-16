@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Popular Music App</string>
+    <string name="dialog_text">Loading</string>
+    <string name="listeners">listeners</string>
+
+    <string-array name="countries_ids">
+        <item>israel</item>
+        <item>italy</item>
+        <item>spain</item>
+    </string-array>
+</resources>
