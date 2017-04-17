@@ -3,16 +3,21 @@ package com.goodcat.popularmusicapp.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
 
-public class ArtistModel {
-
+public class ArtistModel extends RealmObject {
+    @Ignore
     public static final int IMAGE_SIZE_SMALL = 0;
+    @Ignore
     public static final int IMAGE_SIZE_MEDIUM = 1;
+    @Ignore
     public static final int IMAGE_SIZE_LARGE = 2;
+    @Ignore
     public static final int IMAGE_SIZE_ESTRALARGE = 3;
+    @Ignore
     public static final int IMAGE_SIZE_MEGA = 4;
 
     @SerializedName("listeners")
@@ -23,6 +28,7 @@ public class ArtistModel {
     @Expose
     private String name;
 
+    @PrimaryKey
     @SerializedName("mbid")
     @Expose
     private String mbid;
@@ -37,7 +43,9 @@ public class ArtistModel {
 
     @SerializedName("image")
     @Expose
-    private List<Map<String, String>> image;
+    private RealmList<ImageSizes> image;
+
+    private String country;
 
     public String getName() {
         return name;
@@ -59,27 +67,16 @@ public class ArtistModel {
         return streamable;
     }
 
-    public List<Map<String, String>> getImage() {
-        return image;
-
+    public String getImageUrl(int size){
+        return image.get(size).getUrl();
     }
 
-    public String getImageUrl(int size){
-        Map<String, String> map = getImage().get(size);
+    public String getCountry() {
+        return country;
+    }
 
-        String url = null;
-
-        Iterator<Map.Entry<String, String>> iterator = map.entrySet().iterator();
-
-        while (iterator.hasNext()){
-
-            Map.Entry pair = iterator.next();
-            if(pair.getKey().equals("#text")) {
-                url = (String) pair.getValue();
-                break;
-            }
-        }
-
-        return url;
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
+

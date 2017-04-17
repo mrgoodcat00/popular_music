@@ -15,9 +15,11 @@ public class PopularMusicApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        netBridge = new NetFacade(this);
         dbBridge = new DbFacade(this);
+        netBridge = new NetFacade(this,dbBridge);
     }
+
+
 
     public NetBridge getNetFacade() {
         return netBridge;

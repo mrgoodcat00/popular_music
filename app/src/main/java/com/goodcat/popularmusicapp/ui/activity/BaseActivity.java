@@ -9,6 +9,7 @@ import com.goodcat.popularmusicapp.R;
 import com.goodcat.popularmusicapp.core.PopularMusicApp;
 import com.goodcat.popularmusicapp.core.bridge.DbBridge;
 import com.goodcat.popularmusicapp.core.bridge.NetBridge;
+import com.goodcat.popularmusicapp.util.NetworkConnectivityUtil;
 
 public class BaseActivity extends AppCompatActivity implements ActivityBridge{
 
@@ -58,5 +59,20 @@ public class BaseActivity extends AppCompatActivity implements ActivityBridge{
 
         progressDialog.dismiss();
         progressDialog = null;
+    }
+
+    protected boolean isOnline(){
+
+        if(!NetworkConnectivityUtil.isNetworkConneted(this)){
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    public enum NETWORK_STATE {
+        IS_ONLINE,
+        IS_OFF_LINE
     }
 }

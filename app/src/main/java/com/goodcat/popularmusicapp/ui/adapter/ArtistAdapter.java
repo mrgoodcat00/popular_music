@@ -42,27 +42,45 @@ public class ArtistAdapter  extends BaseAdapter{
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View convertView, ViewGroup viewGroup) {
 
         ArtistModel model = getItem(i);
 
-        View infView = LayoutInflater.from(context).inflate(R.layout.artist_list_item_layout,viewGroup,false);
+        ViewHolder holder;
 
-        ImageView image  = (ImageView) infView.findViewById(R.id.main_screen_artist_avatar);
-        Picasso.with(context).load(model.getImageUrl(ArtistModel.IMAGE_SIZE_MEDIUM)).placeholder(R.mipmap.ic_launcher_round).into(image);
+        if(convertView == null){
+            convertView = LayoutInflater.from(context).inflate(R.layout.artist_list_item_layout,viewGroup,false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
-        TextView name = (TextView) infView.findViewById(R.id.main_screen_artist_name);
-        name.setText(model.getName());
+        Picasso.with(context).load(model.getImageUrl(ArtistModel.IMAGE_SIZE_LARGE)).placeholder(R.mipmap.ic_launcher_round).into(holder.artistAvatar);
 
-        TextView listeners = (TextView) infView.findViewById(R.id.main_screen_artist_listeners_count);
-        listeners.setText("("+String.valueOf(model.getListeners())+" "+context.getString(R.string.listeners)+")");
+        holder.artistName.setText(model.getName());
 
-        return infView;
+        holder.listeners.setText("("+String.valueOf(model.getListeners())+" "+context.getString(R.string.listeners)+")");
+
+        return convertView;
     }
 
     public void setArtists(List<ArtistModel> list){
         artists.clear();
         artists.addAll(list);
         notifyDataSetChanged();
+    }
+
+    private class ViewHolder{
+
+        private ImageView artistAvatar;
+        private TextView artistName;
+        private TextView listeners;
+
+        public ViewHolder(View view) {
+            this.artistAvatar = (ImageView) view.findViewById(R.id.main_screen_artist_avatar);
+            this.artistName = (TextView) view.findViewById(R.id.main_screen_artist_name);
+            this.listeners = (TextView) view.findViewById(R.id.main_screen_artist_listeners_count);
+        }
     }
 }

@@ -4,19 +4,19 @@ import com.goodcat.popularmusicapp.model.ArtistModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import io.realm.RealmList;
 
 public class TopArtistsResponse {
 
     @SerializedName("artist")
     @Expose
-    private List<ArtistModel> artist;
+    private RealmList<ArtistModel> artist;
 
     @SerializedName("@attr")
     @Expose
     private Attributes attr;
 
-    public List<ArtistModel> getArtist() {
+    public RealmList<ArtistModel> getArtist() {
         return artist;
     }
 

@@ -9,7 +9,23 @@ public class ServerResponse {
     @Expose
     private TopArtistsResponse topartists;
 
+    @SerializedName("topalbums")
+    @Expose
+    private TopAlbumsResponse topalbums;
+
+    @SerializedName("artist")
+    @Expose
+    private ArtistInfoResponse artist;
+
+    public ArtistInfoResponse getArtist() {
+        return artist;
+    }
+
     public TopArtistsResponse getTopartists() {
         return topartists;
+    }
+
+    public TopAlbumsResponse getTopAlbums() {
+        return topalbums;
     }
 }
